@@ -1,16 +1,17 @@
 <script type="text/javascript"> 
 jQuery(document).ready(function (){
+	var lastsel3;
 	jQuery("#xmlmap").jqGrid({ 
 		url:'usuarios.xml'
 		, datatype: "xml"
 		, colNames:['id', 'Nome', 'Senha', 'Descrição', 'Data', 'Ativo']
 		, colModel:[ 
 			{name:'id', width:55}
-			, {name:'nome', index:'nome', width:90}
-			, {name:'password', width:100}
-			, {name:'descricao', width:80, align:"right"}
-			, {name:'data', width:80, align:"right"}
-			, {name:'ativo', width:80, align:"right"}
+			, {name:'nome', index:'nome', width:90, editable:true}
+			, {name:'password', width:100, editable: true}
+			, {name:'descricao', width:80, align:"right", editable: true}
+			, {name:'data', width:80, align:"right", editable: true, sorttype:"date"}
+			, {name:'ativo', width:80, align:"right", editable: true,edittype:"checkbox",editoptions: {value:"true:false"}}
 		]
 		, rowNum:10
 		, rowList:[10, 20, 30]
@@ -21,8 +22,19 @@ jQuery(document).ready(function (){
 		, xmlReader: { root : "usuarios", row: "usuario", repeatitems: false, id: "id" }
 		, caption: "XML Mapping"
 		, height: '100%' 
+		, editurl: "usuarios/{#id}" 
+		, onSelectRow: function(id){
+			if (id && id!==lastsel3){ 
+				jQuery('#xmlmap').jqGrid('restoreRow',lastsel3); 
+				jQuery('#xmlmap').jqGrid('editRow',id,true, pickdates); 
+				lastsel3=id; 
+			} 
+		}
 	}); 
-	jQuery("#xmlmap").jqGrid('navGrid', '#pxmlmap', {edit:true, add:true, del:true}); 
+	jQuery("#xmlmap").jqGrid('navGrid', '#pxmlmap', {edit:false, add:true, del:true}); 
+	function pickdates(id){ 
+		jQuery("#"+id+"_data","#xmlmap").datepicker({dateFormat:"yy-mm-dd"}); 
+	} 
 })
 </script>
 
