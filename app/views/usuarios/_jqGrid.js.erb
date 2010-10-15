@@ -1,0 +1,28 @@
+<script type="text/javascript"> 
+jQuery(document).ready(function (){
+	jQuery("#xmlmap").jqGrid({ 
+		url:'usuarios.xml'
+		, datatype: "xml"
+		, colNames:['id', 'Nome', 'Senha', 'Descrição', 'Data', 'Ativo']
+		, colModel:[ 
+			{name:'id', width:55}
+			, {name:'nome', index:'nome', width:90}
+			, {name:'password', width:100}
+			, {name:'descricao', width:80, align:"right"}
+			, {name:'data', width:80, align:"right"}
+			, {name:'ativo', width:80, align:"right"}
+		]
+		, rowNum:10
+		, rowList:[10, 20, 30]
+		, pager: '#pxmlmap'
+		, sortname: 'id'
+		, viewrecords: true
+		, sortorder: "desc"
+		, xmlReader: { root : "usuarios", row: "usuario", repeatitems: false, id: "id" }
+		, caption: "XML Mapping"
+		, height: '100%' 
+	}); 
+	jQuery("#xmlmap").jqGrid('navGrid', '#pxmlmap', {edit:true, add:true, del:true}); 
+})
+</script>
+

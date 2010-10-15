@@ -1,0 +1,35 @@
+<h1>Listing usuarios</h1>
+
+<table>
+  <tr>
+    <th>Nome</th>
+    <th>Password</th>
+    <th>Descricao</th>
+    <th>Data</th>
+    <th>Ativo</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<table id="xmlmap"></table> 
+<div id="pxmlmap"></div> 
+<% @usuarios.each do |usuario| %>
+  <tr>
+    <td><%= usuario.nome %></td>
+    <td><%= usuario.password %></td>
+    <td><%= usuario.descricao %></td>
+    <td><%= usuario.data %></td>
+    <td><%= usuario.ativo %></td>
+    <td><%= link_to 'Show', usuario %></td>
+    <td><%= link_to 'Edit', edit_usuario_path(usuario) %></td>
+    <td><%= link_to 'Destroy', usuario, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Usuario', new_usuario_path %>
+
+<%= render 'jqGrid.js' %>

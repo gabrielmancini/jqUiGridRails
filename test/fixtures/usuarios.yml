@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  nome: MyString
+  password: 
+  descricao: MyText
+  data: 2010-10-15 12:12:42
+  ativo: false
+
+two:
+  nome: MyString
+  password: 
+  descricao: MyText
+  data: 2010-10-15 12:12:42
+  ativo: false

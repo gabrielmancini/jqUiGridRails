@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JqUiGridRails</title>
+  <%= stylesheet_link_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/flick/jquery-ui.css' %>
+  <%= stylesheet_link_tag 'jqGrid/css/ui.jqgrid.css' %>
+  <%= stylesheet_link_tag :all %>
+  
+  <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' %>
+  <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js' %>
+  <%= javascript_include_tag 'jqGrid/js/i18n/grid.locale-en.js' %>
+  <%= javascript_include_tag 'jqGrid/jquery.jqGrid.js' %>
+
+  <%= csrf_meta_tag %>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+</html>
