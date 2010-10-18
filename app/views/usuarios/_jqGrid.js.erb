@@ -1,17 +1,17 @@
 <script type="text/javascript"> 
 jQuery(document).ready(function (){
-	var lastsel3;
+	var lastId;
 	jQuery("#xmlmap").jqGrid({ 
 		url:'usuarios.xml'
 		, datatype: "xml"
 		, colNames:['id', 'Nome', 'Senha', 'Descrição', 'Data', 'Ativo']
 		, colModel:[ 
 			{name:'id', width:55}
-			, {name:'nome', index:'nome', width:90, editable:true}
-			, {name:'password', width:100, editable: true}
-			, {name:'descricao', width:80, align:"right", editable: true}
-			, {name:'data', width:80, align:"right", editable: true, sorttype:"date"}
-			, {name:'ativo', width:80, align:"right", editable: true,edittype:"checkbox",editoptions: {value:"true:false"}}
+			, {name:'nome', index:'nome', width:90}
+			, {name:'password', width:100}
+			, {name:'descricao', width:80}
+			, {name:'data', width:80, align:"center"}
+			, {name:'ativo', width:80, align:"right"}
 		]
 		, rowNum:10
 		, rowList:[10, 20, 30]
@@ -24,17 +24,54 @@ jQuery(document).ready(function (){
 		, height: '100%' 
 		, editurl: "usuarios/{#id}" 
 		, onSelectRow: function(id){
-			if (id && id!==lastsel3){ 
-				jQuery('#xmlmap').jqGrid('restoreRow',lastsel3); 
-				jQuery('#xmlmap').jqGrid('editRow',id,true, pickdates); 
-				lastsel3=id; 
+			if (id && id!==lastId){ 
+				lastId = id;
+				//jQuery('#xmlmap').jqGrid('restoreRow',lastId); 
 			} 
 		}
 	}); 
-	jQuery("#xmlmap").jqGrid('navGrid', '#pxmlmap', {edit:false, add:true, del:true}); 
-	function pickdates(id){ 
-		jQuery("#"+id+"_data","#xmlmap").datepicker({dateFormat:"yy-mm-dd"}); 
-	} 
-})
+	jQuery("#xmlmap")
+		.navGrid('#pxmlmap',{edit:false,add:false,del:false,search:false})
+		.navButtonAdd('#pxmlmap',{
+			caption:"", 
+			buttonicon:"ui-icon ui-icon-plus", 
+			position:"last",
+			id:"add"
+		})
+		.navButtonAdd('#pxmlmap',{
+			caption:"", 
+			buttonicon:"ui-icon ui-icon-pencil", 
+			onClickButton: function(sender){ 
+				if (lastId!=null) {
+					jQuery.get(sprintf("usuarios/%d/edit", lastId), showModel)
+				};
+			}, 
+			position:"last",
+			id:"edit"
+		})
+		.navButtonAdd('#pxmlmap',{
+			caption:"", 
+			buttonicon:"ui-icon ui-icon-trash", 
+			onClickButton: function(){ 
+				alert("Deleting Row");
+			}, 
+			position:"last",
+			id:"del"
+		});	
+});	
+
+function showModel(data){							
+	var $dialog = $('<div></div>')
+		.html(data)
+		.dialog({
+			autoOpen: false,
+			title: 'Basic Dialog',
+			modal: true, 
+			height: 500,
+			width: 550,
+		});							
+	$dialog.dialog('open');															
+};
+
 </script>
 

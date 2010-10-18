@@ -14,6 +14,12 @@
 
 <table id="xmlmap"></table> 
 <div id="pxmlmap"></div> 
+
+
+<div id="dialog-form" title="Create new user">
+</div>
+
+
 <% @usuarios.each do |usuario| %>
   <tr>
     <td><%= usuario.nome %></td>
@@ -29,7 +35,7 @@
 </table>
 
 <br />
-
 <%= link_to 'New Usuario', new_usuario_path %>
 
 <%= render 'jqGrid.js' %>
+<%= render 'form.js' %>

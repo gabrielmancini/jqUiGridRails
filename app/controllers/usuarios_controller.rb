@@ -5,7 +5,6 @@ class UsuariosController < ApplicationController
   # GET /usuarios.xml
   def index
     @usuarios = Usuario.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @usuarios }
