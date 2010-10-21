@@ -1,0 +1,80 @@
+<script type="text/javascript"> 
+jQuery(document).ready(function (){
+	var lastId;
+	jQuery("#xmlmap").jqGrid({ 
+		url:'usuarios.xml'
+		, datatype: "xml"
+		, colNames:['id', 'Nome', 'Senha', 'Descrição', 'Data', 'Ativo']
+		, colModel:[ 
+			{name:'id', width:55}
+			, {name:'nome', index:'nome', width:90}
+			, {name:'password', width:100}
+			, {name:'descricao', width:80}
+			, {name:'data', width:80, align:"center"}
+			, {name:'ativo', width:80, align:"right"}
+		]
+		, rowNum:10
+		, rowList:[10, 20, 30]
+		, pager: '#pxmlmap'
+		, sortname: 'id'
+		, viewrecords: true
+		, sortorder: "desc"
+		, xmlReader: { root : "usuarios", row: "usuario", repeatitems: false, id: "id" }
+		, caption: "Listing Usuarios"
+		, height: '100%' 
+		, editurl: "usuarios/{#id}" 		
+	}); 
+	jQuery("#xmlmap")
+		.navGrid('#pxmlmap',{edit:false,add:false,del:false,search:false})
+		.navButtonAdd('#pxmlmap',{
+			caption:"", 
+			buttonicon:"ui-icon ui-icon-plus", 
+			onClickButton: function(sender){ 
+				jQuery.get("usuarios/new", showModel)
+			},
+			position:"last",
+			id:"add"
+		})
+		.navButtonAdd('#pxmlmap',{
+			caption:"", 
+			buttonicon:"ui-icon ui-icon-pencil", 
+			onClickButton: function(sender){ 
+				var rowid = jQuery(this).getGridParam('selrow');
+				if (null!=rowid) {
+					jQuery.get(sprintf("usuarios/%d/edit", rowid), showModel)
+				};
+			}, 
+			position:"last",
+			id:"edit"
+		})
+		.navButtonAdd('#pxmlmap',{
+			caption:"", 
+			buttonicon:"ui-icon ui-icon-trash", 
+			onClickButton: function(){ 
+				alert("Deleting Row");
+			}, 
+			position:"last",
+			id:"del"
+		});	
+});	
+
+function showModel(data){							
+/*
+	$dialog = $('<div></div>')
+		.html(data)
+		.dialog({
+			autoOpen: false,
+			title: 'Basic Dialog',
+			modal: true, 
+			height: 500,
+			width: 550,
+		});							
+	$dialog.dialog('open');															
+*/
+	$( "#dialog-form" )
+		.html(data)
+		.dialog( "open" );
+};
+
+</script>
+

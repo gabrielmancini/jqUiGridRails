@@ -1,5 +1,6 @@
 JqUiGridRails::Application.routes.draw do
   resources :usuarios
+  resources :usuariosJQ
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

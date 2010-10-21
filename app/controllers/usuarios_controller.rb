@@ -1,5 +1,6 @@
 class UsuariosController < ApplicationController
- layout "jqGrid" 
+
+ layout "jQueryUI" 
 
   # GET /usuarios
   # GET /usuarios.xml
@@ -81,4 +82,5 @@ class UsuariosController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
 end
